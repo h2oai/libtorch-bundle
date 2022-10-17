@@ -30,7 +30,7 @@ jobs:
     - name: Test
       run: |
         ls -la target
-        java -cp target/libtorch-bundle.jar:target/bundles/linux_64.jar:target/slf4j-api.jar ai.h2o.LibtorchBundle src/test/data/demo-model.pt1 | tee target/output.txt
+        java -cp target/libtorch-bundle.jar:target/bundles/linux_64.jar:target/slf4j-api.jar ai.h2o.libtorch.LibtorchBundle src/test/data/demo-model.pt1 | tee target/output.txt
         diff -u --color=always src/test/data/demo-model.pt1.output.txt target/output.txt
 #    - uses: actions/upload-artifact@v3
 #      with:
@@ -72,7 +72,7 @@ jobs:
 #    - name: Build with Maven
 #      run: mvn -B package
 #    - name: Test
-#      run: java -cp target/libtorch-bundle.jar:target/bundles/windows_64.jar:target/slf4j-api.jar ai.h2o.LibtorchBundle src/test/data/demo-model.pt1
+#      run: java -cp target/libtorch-bundle.jar:target/bundles/windows_64.jar:target/slf4j-api.jar ai.h2o.libtorch.LibtorchBundle src/test/data/demo-model.pt1
 
   macos-build:
 
@@ -89,7 +89,7 @@ jobs:
     - name: Build with Maven
       run: mvn -B package
     - name: Test
-      run: java -cp target/libtorch-bundle.jar:target/bundles/osx_64.jar:target/slf4j-api.jar ai.h2o.LibtorchBundle src/test/data/demo-model.pt1
+      run: java -cp target/libtorch-bundle.jar:target/bundles/osx_64.jar:target/slf4j-api.jar ai.h2o.libtorch.LibtorchBundle src/test/data/demo-model.pt1
 
 #  macos-test:
 #    runs-on: macos-latest
@@ -111,5 +111,5 @@ jobs:
 #        run: |
 #          wget https://repo.maven.apache.org/maven2/org/slf4j/slf4j-api/1.7.32/slf4j-api-1.7.32.jar -O lib/slf4j-api.jar
 #          ls -al lib/
-#          java -cp lib/libtorch-bundle.jar:lib/osx_64.jar:lib/slf4j-api.jar ai.h2o.LibtorchBundle data/demo-model.pt1 | tee output.txt
+#          java -cp lib/libtorch-bundle.jar:lib/osx_64.jar:lib/slf4j-api.jar ai.h2o.libtorch.LibtorchBundle data/demo-model.pt1 | tee output.txt
 #          diff -u --color=always data/demo-model.pt1.output.txt output.txt
