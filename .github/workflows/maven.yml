@@ -32,31 +32,31 @@ jobs:
         ls -la target
         java -cp target/libtorch-bundle.jar:target/bundles/linux_64.jar:target/slf4j-api.jar ai.h2o.LibtorchBundle src/test/data/demo-model.pt1 | tee target/output.txt
         diff -u --color=always src/test/data/demo-model.pt1.output.txt target/output.txt
-    - uses: actions/upload-artifact@v3
-      with:
-        name: "libtorch-bundle-snapshot-linux_64"
-        path: target/bundles/linux_64.jar
-        if-no-files-found: error
-    - uses: actions/upload-artifact@v3
-      with:
-        name: "libtorch-bundle-snapshot-osx_64"
-        path: target/bundles/osx_64.jar
-        if-no-files-found: error
-    - uses: actions/upload-artifact@v3
-      with:
-        name: "libtorch-bundle-snapshot-windows_64"
-        path: target/bundles/windows_64.jar
-        if-no-files-found: warn
-    - uses: actions/upload-artifact@v3
-      with:
-        name: "libtorch-bundle-snapshot"
-        path: target/libtorch-bundle.jar
-        if-no-files-found: error
-    - uses: actions/upload-artifact@v3
-      with:
-        name: "libtorch-bundle-snapshot"
-        path: src/test/data
-        if-no-files-found: error
+#    - uses: actions/upload-artifact@v3
+#      with:
+#        name: "libtorch-bundle-snapshot-linux_64"
+#        path: target/bundles/linux_64.jar
+#        if-no-files-found: error
+#    - uses: actions/upload-artifact@v3
+#      with:
+#        name: "libtorch-bundle-snapshot-osx_64"
+#        path: target/bundles/osx_64.jar
+#        if-no-files-found: error
+#    - uses: actions/upload-artifact@v3
+#      with:
+#        name: "libtorch-bundle-snapshot-windows_64"
+#        path: target/bundles/windows_64.jar
+#        if-no-files-found: warn
+#    - uses: actions/upload-artifact@v3
+#      with:
+#        name: "libtorch-bundle-snapshot"
+#        path: target/libtorch-bundle.jar
+#        if-no-files-found: error
+#    - uses: actions/upload-artifact@v3
+#      with:
+#        name: "libtorch-bundle-snapshot"
+#        path: src/test/data
+#        if-no-files-found: error
 
 #==== suppressed, windows version does not currently work, see https://github.com/pkozelka/libtorch-bundle/issues/1
 #  windows-build:
@@ -91,25 +91,25 @@ jobs:
     - name: Test
       run: java -cp target/libtorch-bundle.jar:target/bundles/osx_64.jar:target/slf4j-api.jar ai.h2o.LibtorchBundle src/test/data/demo-model.pt1
 
-  macos-test:
-    runs-on: macos-latest
-    needs: linux-build
-    steps:
-      - uses: actions/download-artifact@v3
-        with:
-          name: "libtorch-bundle-snapshot"
-          path: lib/
-      - uses: actions/download-artifact@v3
-        with:
-          name: "libtorch-bundle-snapshot-osx_64"
-          path: lib/
-      - uses: actions/download-artifact@v3
-        with:
-          name: "data"
-          path: lib/
-      - name: get slf4j and run against the data
-        run: |
-          wget https://repo.maven.apache.org/maven2/org/slf4j/slf4j-api/1.7.32/slf4j-api-1.7.32.jar -O lib/slf4j-api.jar
-          ls -al lib/
-          java -cp lib/libtorch-bundle.jar:lib/osx_64.jar:lib/slf4j-api.jar ai.h2o.LibtorchBundle data/demo-model.pt1 | tee output.txt
-          diff -u --color=always data/demo-model.pt1.output.txt output.txt
+#  macos-test:
+#    runs-on: macos-latest
+#    needs: linux-build
+#    steps:
+#      - uses: actions/download-artifact@v3
+#        with:
+#          name: "libtorch-bundle-snapshot"
+#          path: lib/
+#      - uses: actions/download-artifact@v3
+#        with:
+#          name: "libtorch-bundle-snapshot-osx_64"
+#          path: lib/
+#      - uses: actions/download-artifact@v3
+#        with:
+#          name: "data"
+#          path: lib/
+#      - name: get slf4j and run against the data
+#        run: |
+#          wget https://repo.maven.apache.org/maven2/org/slf4j/slf4j-api/1.7.32/slf4j-api-1.7.32.jar -O lib/slf4j-api.jar
+#          ls -al lib/
+#          java -cp lib/libtorch-bundle.jar:lib/osx_64.jar:lib/slf4j-api.jar ai.h2o.LibtorchBundle data/demo-model.pt1 | tee output.txt
+#          diff -u --color=always data/demo-model.pt1.output.txt output.txt
