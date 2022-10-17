@@ -45,7 +45,7 @@ function uploadMavenRepository() {
     echo "Signing files in $G"
     # sign all files that need to be signed
     rm -f $G/*.asc
-    /bin/ls -1 $G/* | grep -v '\.md5$\|\.sha1$' | xargs -L 1 gpg -ab
+    /bin/ls -1 $G/* | grep -v '\.md5$\|\.sha1$' | xargs -L 1 gpg -ab --no-tty --batch --yes
 
     # upload everything in the directory
     FILES=$(find $G -type f -printf ',%f')
