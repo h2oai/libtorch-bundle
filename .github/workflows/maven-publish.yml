@@ -60,7 +60,7 @@ jobs:
     - name: Initialize GPG
       run: echo -n "${{ secrets.GPG_PRIVATE_KEY }}" | base64 --decode | gpg --import || exit 1
     - name: Upload to Sonatype OSS Nexus
-      run: OSSRH_AUTH=${{ secrets.OSSRH_TOKEN }} ./upload.sh "5ae9af53a3aeee"
+      run: OSSRH_AUTH=${{ secrets.OSSRH_TOKEN }} ./upload.sh ${{ secrets.OSSRH_STAGING_PROFILE_ID }}
     - name: Git operations - commit, tag, commit
       run: |
         echo "machine     github.com login $GITHUB_ACTOR password ${{ github.token }}" >> "$HOME/.netrc"

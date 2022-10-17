@@ -3,7 +3,6 @@
 # Uses OSS Nexus as the interface to expose the artifacts. After successful end, all artifacts are prepared inside
 # a newly created staging repository; the user's responsibility is to close and release it manually.
 
-# "5ae9af53a3aeee" for net.kozelka
 stagingProfileId=$1
 
 function createStagedRepository() {

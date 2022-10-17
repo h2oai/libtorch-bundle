@@ -1,4 +1,4 @@
-package net.kozelka.libtorch;
+package ai.h2o.libtorch;
 
 import com.facebook.soloader.nativeloader.NativeLoader;
 import com.facebook.soloader.nativeloader.SystemDelegate;

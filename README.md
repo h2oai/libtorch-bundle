@@ -31,18 +31,18 @@ For example, if you want to support Linux and Mac in your application, your Mave
 ```xml
 <dependencies>
     <dependency>
-        <groupId>net.kozelka.ai</groupId>
+        <groupId>ai.h2o</groupId>
         <artifactId>libtorch-bundle</artifactId>
         <version>${libtorch.version}</version>
     </dependency>
     <dependency>
-        <groupId>net.kozelka.ai</groupId>
+        <groupId>ai.h2o</groupId>
         <artifactId>libtorch-bundle</artifactId>
         <version>${libtorch.version}</version>
         <classifier>linux_64</classifier>
     </dependency>
     <dependency>
-        <groupId>net.kozelka.ai</groupId>
+        <groupId>ai.h2o</groupId>
         <artifactId>libtorch-bundle</artifactId>
         <version>${libtorch.version}</version>
         <classifier>osx_64</classifier>

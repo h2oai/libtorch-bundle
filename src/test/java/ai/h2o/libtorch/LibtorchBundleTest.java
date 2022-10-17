@@ -1,4 +1,4 @@
-package net.kozelka.libtorch;
+package ai.h2o.libtorch;
 
 import java.io.File;
 import java.util.Arrays;
