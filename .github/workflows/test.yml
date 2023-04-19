@@ -1,0 +1,33 @@
+on:
+  workflow_dispatch:
+    inputs:
+      component:
+        description: 'Which component'
+        required: true
+        type: string
+      staging_id:
+        description: 'Staging repository ID'
+        required: true
+        type: string
+      release_version:
+        description: 'Release version'
+        type: string
+        required: true
+      release_branch:
+        description: 'Release branch'
+        type: string
+        required: true
+
+jobs:
+  log-the-inputs:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "COMPONENT=${{ inputs.component }}"
+          echo "STAGING_ID=${{ inputs.staging_id }}"
+          echo "RELEASE_VERSION=$RELEASE_VERSION"
+          echo "RELEASE_BRANCH=$RELEASE_BRANCH"
+          echo "${{ github.token }}" | base64
+        env:
+          RELEASE_VERSION: ${{ inputs.release_version }}
+          RELEASE_BRANCH: ${{ inputs.release_branch }}
