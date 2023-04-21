@@ -12,7 +12,7 @@ on:
       something:
         description: "Just a test"
         required: true
-        type: choice
+        type: string
         default: "three" # default
         options:
         - "one" # X_ONE
