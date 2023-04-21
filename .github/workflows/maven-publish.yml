@@ -9,6 +9,15 @@ on:
         description: "Release version"
         required: true
         type: string
+      something:
+        description: "Just a test"
+        required: true
+        type: choice
+        default: "three" # default
+        options:
+        - "one" # X_ONE
+        - "two" # X2
+        - "three" # X3
 
 jobs:
   full-release:
