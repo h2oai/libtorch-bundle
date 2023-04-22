@@ -1,5 +1,6 @@
 on:
   pull_request_review:
+    types: [submitted, edited, dismissed]
 
 run-name: "on ${{ github.event_name }}: ${{ github.event.action }}"
 
