@@ -1,0 +1,58 @@
+name: "Release - 2a) ACCEPT"
+
+on:
+  pull_request_target:
+    types: [ready_for_review]
+
+run-name: "Accept ${{ github.head_ref }}"
+
+jobs:
+  accept-release-attempt:
+    if: |
+      startsWith(github.head_ref, 'release/') 
+      && github.event_name == "pull_request_target"
+      && github.event.action == "ready_for_review"
+      && github.event.pull_request.merged == false
+    runs-on: ubuntu-latest
+    permissions: write-all
+    steps:
+      - uses: mshick/add-pr-comment@v2
+        with:
+          message: |
+            Release has been ACCEPTED.
+            Now performing the final steps: wait for further messages here.
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.head_ref }}
+          clean: false
+          submodules: false
+          fetch-depth: 5
+      - name: Initialize after checkout
+        run: |
+          ci/rls.sh hello accept
+          ci/rls.sh ossrh_login "${{ secrets.OSSRH_TOKEN }}"
+          cat release.properties >> $GITHUB_ENV # update GitHub ENV vars
+          echo Release for version '${RELEASE_VERSION}' was ACCEPTED on branch ${{ github.head_ref }}
+      - name: Promote (release) staging repo
+        run: |
+          STAGING_PROMOTED="x"
+          ci/rls.sh staging promote || STAGING_PROMOTED=" "
+          echo "STAGING_PROMOTED='$STAGING_PROMOTED'" >> $GITHUB_ENV # update GitHub ENV vars
+      - uses: mshick/add-pr-comment@v2
+        with:
+          message: |
+            Release `${{ env.RELEASE_VERSION }}` has been ACCEPTED.
+            [${{ env.STAGING_PROMOTED }}] Staging repository released
+            Publication of OSS Sonatype Nexus artifacts can be fixed/completed as described [here](https://github.com/h2oai/mojo2/blob/master/doc/oss-nexus.md).
+
+            Then, make sure to visit dependent projects and upgrade their dependency on mojo2 to this new coolest version.
+      - name: "Git: commit SNAPSHOT version"
+        run: |
+          ci/rls.sh switch_to_snapshot
+      - name: "Merge release into base branch"
+        run: |
+          ci/rls.sh merge_release_branch_into_base
+      #TODO create pull requests in dependent projects; perhaps by calling webhook?
+      - name: "Operation complete."
+        run: |
+          ci/rls.sh bye accept
