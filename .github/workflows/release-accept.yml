@@ -9,7 +9,7 @@ run-name: "Accept ${{ github.head_ref }}"
 jobs:
   accept-release-attempt:
     if: |
-      startsWith(github.head_ref, 'release/') 
+      startsWith(github.head_ref, 'release/')
       && github.event_name == "pull_request_target"
       && github.event.action == "ready_for_review"
       && github.event.pull_request.merged == false
