@@ -49,6 +49,34 @@ on:
       - created
       - edited
       - deleted
+  workflow_dispatch:
+    inputs:
+      release_version:
+        description: "Release version (MUST NOT contain `SNAPSHOT`!)"
+        required: true
+        type: string
+        options:
+          - "2.8.0" # NEXT_RELEASE_MINOR
+          - "2.7.13" # NEXT_RELEASE_PATCH
+          - "2.7.12.1" # NEXT_RELEASE_HOTFIX
+        default: "2.7.12.45" # NEXT_RELEASE_DEFAULT
+      next_snapshot_version:
+        description: "Next snapshot version to set after successful release (MUST end with `-SNAPSHOT`!)"
+        default: "2.7.14-SNAPSHOT" # NEXT_SNAPSHOT_DEFAULT
+        required: true
+        type: string
+      base_branch:
+        description: "Base branch to merge release into"
+        default: "main"
+        required: true
+        type: string
+      initial_rev:
+        description: |
+          Revision to release from; must belong to history of above 'base_branch'.
+          Defaults to its head.
+          Use only for special 'cherry-pick' releases.
+        default: ""
+        type: string
 
 name: many
 run-name: "on ${{ github.event_name }}: ${{ github.event.action }}"
