@@ -10,8 +10,8 @@ jobs:
   accept-release-attempt:
     if: |
       startsWith(github.head_ref, 'release/')
-      && github.event_name == "pull_request_target"
-      && github.event.action == "ready_for_review"
+      && github.event_name == 'pull_request_target'
+      && github.event.action == 'ready_for_review'
       && github.event.pull_request.merged == false
     runs-on: ubuntu-latest
     permissions: write-all
