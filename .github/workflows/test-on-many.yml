@@ -1,4 +1,23 @@
 on:
+  pull_request:
+    types:
+      - assigned
+      - unassigned
+      - labeled
+      - unlabeled
+      - opened
+      - edited
+      - closed
+      - reopened
+      - synchronize
+      - converted_to_draft
+      - ready_for_review
+      - locked
+      - unlocked
+      - review_requested
+      - review_request_removed
+      - auto_merge_enabled
+      - auto_merge_disabled
   pull_request_target:
     types:
       - assigned
@@ -18,12 +37,21 @@ on:
       - review_request_removed
       - auto_merge_enabled
       - auto_merge_disabled
-    branches:
-      # for PR this filters by target branch, not the current one
-      - 'pk/**'
+  pull_request_review:
+    types: [submitted, edited, dismissed]
+  pull_request_review_comment:
+    types:
+      - created
+      - edited
+      - deleted
+  issue_comment:
+    types:
+      - created
+      - edited
+      - deleted
 
-
-run-name: "on LIMITED ${{ github.event_name }}: ${{ github.event.action }}"
+name: many
+run-name: "on ${{ github.event_name }}: ${{ github.event.action }}"
 
 jobs:
   dump_contexts_to_log:
