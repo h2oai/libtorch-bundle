@@ -88,3 +88,4 @@ CURL="curl -u $OSSRH_AUTH --fail"
 cd target/release-package/maven-repository || exit 1
 publishRelease
 
+# test pr1
