@@ -26,4 +26,7 @@ jobs:
       - name: ls remote
         run: |
           git ls-remote https://git:${{ github.token }}@github.com/h2oai/libtorch-bundle.git
+          git ls-remote https://git:${{ github.token }}@github.com/${{ github.repository }}.git
+          git ls-remote git://git@github.com/${{ github.repository }}.git
+          git ls-remote git://git:${{ github.token }}@github.com/${{ github.repository }}.git
 
